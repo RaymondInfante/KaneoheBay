@@ -16,14 +16,53 @@ For this assignment, you will clone this repository, edit this README.md file wi
 
 ## 1) Is the data tidy? If not, explain how you could make the data tidy.
 
+```{r, echo=TRUE, message=FALSE}
+df = read_csv("carbonate_chem_Kaneohe.csv")
+```
+In my opinion, reading the data. The data is “Tidy”.
 
+1. Each Variables has its own columns
+2. Each Observation are in a row
+3. Each Value have its own “data cell”
 
-
+This are characteristic of a Tidy Data, retrieved from [R for Data Science of Hadley Wickham and Garret Grolemund](https://r4ds.had.co.nz/)
 
 
 ## 2) Which survey date had the highest mean seawater temperature? Report mean ± standard deviation seawater temperature for each survey date to support your answer.
 
+
+```{r, echo=TRUE}
+df %>% 
+  select(date, temp) %>% 
+  group_by(date) %>% 
+  summarise(average = mean(temp), Standard_Deviation = sd(temp))
+```
+
+According to the data. The date with the highest mean seawater temperature is **October 31, 2015** with a temperature mean of **27.63697 ± 0.2733986 °C**. Although is very comparable with the temperature of June 29, 2016 with a temperature mean of 27.61951 ± 0.9897524 °C.
+
+
+
 ## 3) Create a "publishable" plot of TA vs DIC for the "bleached" survey data.
+
+
+```{r, echo=TRUE}
+df %>% 
+  filter(reefstatus== "Bleached") %>% 
+  select(reefstatus, ta, dic, date) %>% 
+  ggplot(aes(x = dic, y = ta))+
+  geom_point(color = "lightblue4", alpha = 0.8)+
+  geom_line(alpha = 0.75, color = "lightblue")+
+  theme_classic()+
+  labs(x = "Dissolved Inorganic Carbon (µmol/kg)", y = "Total Alkalinity (µmol/kg)", title = "TA vs DIC for Bleached survey data")+
+  scale_x_continuous(breaks = seq(1800,2050,25)) + theme(axis.text = element_text(size = 11,
+    colour = "black"), axis.text.x = element_text(size = 11),
+    axis.text.y = element_text(size = 11),
+    plot.background = element_rect(fill = "azure2"))
+```
+
+
+
+
 
 ## Column names for the data in the attached file
 Sample ID Number = "sample"             
