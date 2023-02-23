@@ -19,7 +19,7 @@ For this assignment, you will clone this repository, edit this README.md file wi
 ```{r, echo=TRUE, message=FALSE}
 df = read_csv("carbonate_chem_Kaneohe.csv")
 ```
-In my opinion, reading the data. The data is “Tidy”.
+In my opinion, looking the data. The data is “Tidy”.
 
 1. Each Variables has its own columns
 2. Each Observation are in a row
